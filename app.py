@@ -33,6 +33,7 @@ from langchain.prompts import PromptTemplate
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+st.set_page_config(page_title="Build Your Sentiment Classification Pipeline", layout="wide")
 
 @st.cache_resource
 def load_model():
@@ -407,12 +408,12 @@ def confusion_metrics(conf_matrix):
     conf_f1 = 2 * (
         (conf_precision * conf_sensitivity) / (conf_precision + conf_sensitivity)
     )
-    st.write("-" * 50)
     st.write(f"Mis-Classification: {round(conf_misclassification,2)}")
     st.write(f"Sensitivity: {round(conf_sensitivity,2)}")
     st.write(f"Specificity: {round(conf_specificity,2)}")
     st.write(f"Precision: {round(conf_precision,2)}")
     st.write(f"f_1 Score: {round(conf_f1,2)}")
+    st.write("-" * 50)
 
 
 # Sidebar for inputs
@@ -547,7 +548,6 @@ if uploaded_file:
     analyze_with_llm_btn = st.sidebar.button("Analyze Results with LLM", disabled=True)
 
 # Initialize session state if not already initialized
-print("reached here")
 if "uploaded_data" not in st.session_state:
     st.session_state["uploaded_data"] = None
 if "preprocessed_data" not in st.session_state:
