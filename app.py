@@ -38,7 +38,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 def load_model():
     return TASK_LLM  # Load LLM only once
 
-
+#Css styles
 def load_css():
     st.markdown(
         """
