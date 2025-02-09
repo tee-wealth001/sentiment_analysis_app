@@ -1,0 +1,17 @@
+streamlit
+google-generativeai
+langchain-community
+langchain-google-genai
+
+pandas
+numpy
+re
+streamlit
+nltk
+scikit-learn
+matplotlib
+contractions
+python-dotenv
+langchain
+textblob
+vaderSentiment
