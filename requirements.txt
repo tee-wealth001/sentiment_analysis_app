@@ -1,11 +1,5 @@
-streamlit
-google-generativeai
-langchain-community
-langchain-google-genai
-
 pandas
 numpy
-re
 streamlit
 nltk
 scikit-learn
@@ -15,3 +9,9 @@ python-dotenv
 langchain
 textblob
 vaderSentiment
+streamlit
+google-generativeai
+langchain-community
+langchain-google-genai
+
+
