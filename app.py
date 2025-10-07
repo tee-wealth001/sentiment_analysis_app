@@ -33,13 +33,17 @@ from langchain.prompts import PromptTemplate
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-st.set_page_config(page_title="Build Your Sentiment Classification Pipeline", layout="wide")
+st.set_page_config(
+    page_title="Build Your Sentiment Classification Pipeline", layout="wide"
+)
+
 
 @st.cache_resource
 def load_model():
     return TASK_LLM  # Load LLM only once
 
-#Css styles
+
+# Css styles
 def load_css():
     st.markdown(
         """
@@ -236,6 +240,28 @@ huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 # nltk.download("punkt")
 # nltk.download("stopwords")
 # nltk.download("wordnet")
+
+# Download required NLTK data
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
+
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    nltk.download("punkt_tab")
+
+# Download other commonly needed NLTK data for sentiment analysis
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
+
+try:
+    nltk.data.find("corpora/wordnet")
+except LookupError:
+    nltk.download("wordnet")
 
 # Custom CSS for styling the Streamlit app
 st.markdown(
@@ -760,4 +786,3 @@ if uploaded_file:
             st.warning("No results available to analyze. Run the pipeline first.")
 
     load_css()
-
