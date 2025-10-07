@@ -739,18 +739,48 @@ if uploaded_file:
                                     )  # Only format numerical values
 
                         # Plot confusion matrices for each selected classifier
+                        # if "Confusion Matrix" in metrics:
+                        #     st.write(f"## Confusion Matrix Plot")
+                        #     for name, y_pred in y_preds.items():
+                        #         cm = confusion_matrix(y_test, y_pred)
+                        #         disp = ConfusionMatrixDisplay(
+                        #             confusion_matrix=cm,
+                        #             display_labels=["Negative", "Positive"],
+                        #         )
+                        #         disp.plot(cmap=plt.cm.Blues)
+                        #         plt.title(f"Confusion Matrix: {name}")
+                        #         st.pyplot(plt.gcf())
+                        #         plt.clf()  # Clear the current figure to avoid overlap in next plot
+                        #         st.write(f"**{name}:** \n")
+                        #         confusion_metrics(cm)
+
+                        # Plot confusion matrices for each selected classifier
                         if "Confusion Matrix" in metrics:
                             st.write(f"## Confusion Matrix Plot")
                             for name, y_pred in y_preds.items():
-                                cm = confusion_matrix(y_test, y_pred)
+                                # Get unique labels from actual data
+                                unique_labels = sorted(np.unique(np.concatenate([y_test.values, y_pred])))
+                                
+                                # Create confusion matrix with explicit labels
+                                cm = confusion_matrix(y_test, y_pred, labels=unique_labels)
+                                
+                                # Create display labels (convert to strings if numeric)
+                                display_labels = [str(label) for label in unique_labels]
+                                
+                                # Create the confusion matrix display
                                 disp = ConfusionMatrixDisplay(
                                     confusion_matrix=cm,
-                                    display_labels=["Negative", "Positive"],
+                                    display_labels=display_labels
                                 )
-                                disp.plot(cmap=plt.cm.Blues)
+                                
+                                # Create figure and plot
+                                fig, ax = plt.subplots(figsize=(8, 6))
+                                disp.plot(ax=ax, cmap=plt.cm.Blues)
                                 plt.title(f"Confusion Matrix: {name}")
-                                st.pyplot(plt.gcf())
-                                plt.clf()  # Clear the current figure to avoid overlap in next plot
+                                st.pyplot(fig)
+                                plt.close(fig)  # Close figure to free memory
+                                
+                                # Display confusion metrics
                                 st.write(f"**{name}:** \n")
                                 confusion_metrics(cm)
                         # # Plot confusion matrices for each selected classifier
